@@ -35,6 +35,10 @@ Route::get('/liste',[UtilisateurController::class,'index']);
 
 
 Route::resource('books', BookController::class);
+Route::resource('edite', BookController::class,'edite');
+
+
+
 
 
 require __DIR__.'/auth.php';

@@ -42,16 +42,17 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <div class="p-4 md:p-5">
+           
+            <div class="p-4 md:p-5 ">
                 <form class="space-y-4" action="{{ route('books.store') }}" method="post">
                      @csrf
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                        <input type="text" name="title" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <input type="text"  name="title" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">author</label>
-                        <input type="text" name="author" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <input type="text"  name="author" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Genre</label>
@@ -63,7 +64,7 @@
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Publication_year</label>
-                        <input type="text" name="publication_year" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <input type="date" name="publication_year" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">available_copies</label>
@@ -118,8 +119,7 @@
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">available_copies</th>
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">total_copies</th>
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">DELETE</th>
-                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Update</th>
-
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Editer</th>
                                     </tr>
                                     @foreach ( $books as $b )
                                     <tr>
@@ -133,10 +133,12 @@
                                         <td>{{ $b->available_copies}}</td>
                                         <td>{{ $b->total_copies }}</td>
                                         <td>{{ $b->created_at}}</td>
-                                        <td><lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="hover" style="width:25px;height:25px"></lord-icon></td>
-                                        <td>
-                                           <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="focus:outline-none">
-                                              <lord-icon src="https://cdn.lordicon.com/xljvqlng.json" trigger="hover" style="width:25px;height:25px"></lord-icon> </button></td>
+                                        <td> <form action="{{ route('books.destroy', $b->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-500 hover:underline">Supprimer</button>
+                                            </form></td>            
+                               <td><a href="{{ route('books.edit', $b->id) }}" class="text-blue-500 hover:underline">Editer</a></td>
                                     </tr>
                                     @endforeach
                                   
@@ -176,7 +178,6 @@
     @endif
 </div>
 
-        
             </div>
     </x-app-layout>
     <script src="https://cdn.lordicon.com/lordicon.js"></script>

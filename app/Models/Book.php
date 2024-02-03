@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable=[
         'title',
@@ -18,4 +20,5 @@ class Book extends Model
         'total_copies',
         'available_copies',
     ];
+    protected $dates = ['deleted_at'];
 }

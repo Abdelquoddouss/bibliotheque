@@ -63,8 +63,8 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         
-        return view('listeBooks',compact('book'));
-    }
+        return view('edite', compact('book'));
+        }
 
     /**
      * Update the specified resource in storage.
@@ -80,10 +80,9 @@ class BookController extends Controller
             'total_copies' => 'required|integer',
             'available_copies' => 'required|integer',
         ]);
-    
         $book->update($request->all());
-    
-        return redirect()->route('books.index')->with('success', 'Book updated successfully.');
+
+        return redirect()->route('books.index')->with('success', 'Livre mis à jour avec succès.');
     }
 
     /**
@@ -91,6 +90,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+    return redirect()->route('books.index')->with('success', 'Livre supprimé avec succès.');
     }
 }
