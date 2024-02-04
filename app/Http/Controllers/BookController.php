@@ -14,10 +14,19 @@ class BookController extends Controller
     
     public function index()
     {
-        $books = Book::paginate(1);
-        return view('listeBooks',compact('books'));
+        $books = Book::paginate(2);
+        $bookss = Book::onlyTrashed()->paginate(1);
+        return view('listeBooks',compact(['books','bookss']));
     }
 
+    public function restore($id)
+{
+    // Récupérez tous les livres, y compris ceux qui ont été supprimés doucement
+    $book = Book::withTrashed()->find($id);
+    $book->restore();
+
+    return redirect()->route('books.index')->with('success', 'Livre restauré avec succès.');
+}
     /**
      * Show the form for creating a new resource.
      */
